@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.kgitbank.test.model">
+
+	<select id="listBoard" resultType="BoardDTO">
+		select * from spring_board order by num desc 
+	</select>
+	
+	<insert id="insertBoard" parameterType="BoardDTO">
+    	insert into spring_board values
+    	(spring_board_seq.nextval, 
+    	#{writer},#{email},#{subject},#{passwd},
+    	sysdate,0,#{content},#{ip})
+  	</insert>
+  	
+  	<select id="getBoard" parameterType="int" resultType="BoardDTO">
+    	select * from spring_board where num = #{num}
+  	</select>
+  	
+  	<update id="plusReadcount" parameterType="int">
+  		update spring_board set readcount=readcount+1 where num=#{num}
+  	</update>
+  	
+  	<delete id="deleteBoard" parameterType="int">
+  		delete from spring_board where num=#{num}
+  	</delete>
+  	
+  	<update id="updateBoard" parameterType="BoardDTO">
+  		update spring_board set 
+  			writer=#{writer}, 
+  			email=#{email},
+  			subject=#{subject}, 
+  			content=#{content}
+  			where num=#{num}
+  	</update>
+</mapper>
+<!-- <!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+
+  Use type aliases to avoid typing the full classname every time.
+  <typeAlias alias="boardDTO" type="board.dto.BoardDTO"/>
+
+  Result maps describe the mapping between the columns returned
+       from a query, and the class properties.  A result map isn't
+       necessary if the columns (or aliases) match to the properties 
+       exactly.
+  <resultMap id="BoardResult" class="boardDTO">
+    <result property="num" column="num"/>
+ 	<result property="writer" column="writer"/>
+ 	<result property="email" column="email"/>
+ 	<result property="subject" column="subject"/>
+ 	<result property="passwd" column="passwd"/>
+ 	<result property="reg_date" column="reg_date"/>
+ 	<result property="readcount" column="readcount"/>
+ 	<result property="content" column="content"/>
+ 	<result property="ip" column="ip"/>
+  </resultMap>
+
+  Select with no parameters using the result map for Account class.
+  	<select id="listBoard" resultMap="BoardResult">
+    	select * from spring_board order by num desc 
+  	</select>
+
+	<select id="getBoard" parameterClass="int" resultClass="boardDTO">
+    	select * from spring_board where num = #num#
+  	</select>
+  	
+  	<insert id="insertBoard" parameterClass="boardDTO">
+    	insert into spring_board values(spring_board_seq.nextval,
+			#writer#,#email#,#subject#,#passwd#,sysdate,0,#content#,#ip#)
+  	</insert>
+  	
+  	<update id="plusReadcount" parameterClass="int">
+  		update spring_board set readcount=readcount+1 where num=#num#
+  	</update>
+  	
+  	<delete id="deleteBoard" parameterClass="int">
+  		delete from spring_board where num=#num#
+  	</delete>
+  	
+  	<update id="updateBoard" parameterClass="boardDTO">
+  		update spring_board set 
+  			writer=#writer#, 
+  			email=#email#,
+  			subject=#subject#, 
+  			content=#content# 
+  			where num=#num#
+  	</update>
+</sqlMap>
+ -->
