@@ -16,6 +16,12 @@ https://www.oracle.com/technetwork/java/javase/downloads/index.html
 <img src="./img/jdk.jpg">
 추가적으로 CLASS_PATH,PATH도 똑같이 환경 설정을 해준다.
 
+### Tomcat
+* Java Servlet & JSP 기술 구현을 위한 Open Source이다.<br/>
+먼저 아래의 링크에 가서 그림과같이 tomcat을 다운 받는다.
+http://tomcat.apache.org/
+<img src="./img/tomcat.png">
+
 ### Maven
 * Maven은 Java개발에 필요한 각종 라이브리 의존성, 빌드, 테스트를 자동화해주는 툴이다.
 대부분 Java개발이 대규모로 이루어지고 있어 이러한 것을 자동으로 처리해주는 필요가 많이 생겼는데 그것을 자동으로 해준다.
@@ -46,3 +52,8 @@ Eclipse 등 많은 Eclipse 통합 제품들을 제공하는데 우리는 Java EE
    위 화면과 같이 'User Settings' 부분에 앞에서 Maven 설치지에 수정했었던 settings.xml 파일을 인식 시켜준다.
    <img src="./img/maventool.png"><br/>
    마지막으로 위 화면과 같이 Maven은 jdk의 tools.jar을 library에 포함시켜줘야 한다.
+   * Tomcat 설정
+   상단의 Window -> Preference -> Server -> Runtime Environment -> Add 클릭
+   <img src="./img/tomcat2.png">
+   <img src="./img/tomcat3.png"><br/>
+   위 그림과 같이 tomcat을 추가해주고 jdk를 추가해준다. 그 후 OK를 누르면 tomcat설정 완료된다.
