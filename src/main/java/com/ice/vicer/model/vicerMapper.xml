@@ -4,39 +4,25 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="com.kgitbank.test.model">
+<mapper namespace="com.ice.vicer.model">
 
-	<select id="listBoard" resultType="BoardDTO">
-		select * from spring_board order by num desc 
-	</select>
 	
-	<insert id="insertBoard" parameterType="BoardDTO">
-    	insert into spring_board values
-    	(spring_board_seq.nextval, 
-    	#{writer},#{email},#{subject},#{passwd},
-    	sysdate,0,#{content},#{ip})
+	<insert id="insertMember" parameterType="MemberDTO">
+    	insert into members values
+    	(#{id},
+    	#{passwd},
+    	#{email},
+    	#{serialNum},
+    	#{ocup},
+    	#{birth})
   	</insert>
   	
-  	<select id="getBoard" parameterType="int" resultType="BoardDTO">
-    	select * from spring_board where num = #{num}
+  	<select id="loginMember" parameterType="MemberDTO">
+  		select * from members 
+  		where id = #{id} AND passwd = #{passwd}
   	</select>
   	
-  	<update id="plusReadcount" parameterType="int">
-  		update spring_board set readcount=readcount+1 where num=#{num}
-  	</update>
   	
-  	<delete id="deleteBoard" parameterType="int">
-  		delete from spring_board where num=#{num}
-  	</delete>
-  	
-  	<update id="updateBoard" parameterType="BoardDTO">
-  		update spring_board set 
-  			writer=#{writer}, 
-  			email=#{email},
-  			subject=#{subject}, 
-  			content=#{content}
-  			where num=#{num}
-  	</update>
 </mapper>
 <!-- <!DOCTYPE sqlMap      
     PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      

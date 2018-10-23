@@ -2,6 +2,7 @@ package com.ice.vicer.service;
 
 import java.util.List; 
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,36 +14,32 @@ public class IbatisMapper {
 	@Autowired
 	private SqlSession session;
 	
-	public List<MemberDTO> listBoard() {
-		List<MemberDTO> list = null;
-		list = session.selectList("listBoard");
-		return list;
-	}
-	
-	public int insertBoard(MemberDTO dto) {
-		int res = session.insert("insertBoard", dto);
+	public int insertMember(MemberDTO dto) {
+		int res = session.insert("insertMember", dto);
 		return res;
 	}
 	
-	public MemberDTO getBoard(int num, String mode){
-		
-		if (mode.equals("content")) plusReadcount(num);
-		MemberDTO dto = session.selectOne("getBoard", num);
- 		return dto;
-  	}
-	
-	public void plusReadcount(int num) {
- 		session.update("plusReadcount", num);
-   	}
-  	
-  	public int deleteBoard(int num, String pass) {
-  		MemberDTO dto = getBoard(num, "delete");
-  		if(dto.getPasswd().equals(pass)) {
-  			int res = session.delete("deleteBoard", num);
-  			return res;
-  		}else {
-  			return -1;
-  		}
+	public int searchMember(String id, String passwd) {
+		List list = session.selectList("searchMember");
+		if(passwd.equals(list.get(0))) {
+			return 1;
+		}
+		return 0;
+	}
+
+	public int searchSerial(String serialNum) {
+		List list = session.selectList("searchSerial");
+		if(list.get(0) != null) {
+			return 1;
+		}
+		return 0;
+	}
+
+  	public int otp_create(String serialNum) {
+  		int otp;
+  		//otp 난수 값 생성
+  		int res = session.update("putOtp");
+  		return res;
   	}
   	
 }
