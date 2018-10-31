@@ -14,25 +14,25 @@ public class IbatisMapper {
 	@Autowired
 	private SqlSession session;
 	
-	public int insertMember(MemberDTO dto) {
-		int res = session.insert("insertMember", dto);
+	public int regMember(MemberDTO dto) {
+		int res = session.insert("regMember", dto);
 		return res;
 	}
 	
-	public int searchMember(String id, String passwd) {
-		List list = session.selectList("searchMember");
-		if(passwd.equals(list.get(0))) {
-			return 1;
-		}
-		return 0;
+	public String loginMember(String id) {
+		System.err.println("IN LOGIN_MEMBER FUNC");
+		System.err.println(id);
+		String passwd = session.selectOne("loginMember",id);
+		System.err.println(passwd);
+		return passwd;
 	}
 
-	public int searchSerial(String serialNum) {
-		List list = session.selectList("searchSerial");
-		if(list.get(0) != null) {
-			return 1;
+	public String searchSerial(String serialNum) {
+		String carModel = session.selectOne("searchSerial",serialNum);
+		if(carModel != null) {
+			return carModel;
 		}
-		return 0;
+		return "999";
 	}
 
   	public int otp_create(String serialNum) {

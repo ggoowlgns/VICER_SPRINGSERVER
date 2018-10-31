@@ -7,7 +7,7 @@
 <mapper namespace="com.ice.vicer.model">
 
 	
-	<insert id="insertMember" parameterType="MemberDTO">
+	<insert id="regMember" parameterType="MemberDTO">
     	insert into members values
     	(#{id},
     	#{passwd},
@@ -17,11 +17,15 @@
     	#{birth})
   	</insert>
   	
-  	<select id="loginMember" parameterType="MemberDTO">
-  		select * from members 
-  		where id = #{id} AND passwd = #{passwd}
+  	<select id="loginMember" parameterType="string" resultType="string">
+  		select passwd from members 
+  		where id = #{id}
   	</select>
   	
+  	<select id="searchSerial" parameterType="string" resultType="string">
+  		select carmodel from serialNumber
+  		where serialNum = #{serialNum}
+  	</select>
   	
 </mapper>
 <!-- <!DOCTYPE sqlMap      
